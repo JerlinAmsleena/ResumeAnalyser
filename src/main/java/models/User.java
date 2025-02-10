@@ -47,5 +47,10 @@ public class User {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", password=" + password + "]";
+	}
 	
 }
