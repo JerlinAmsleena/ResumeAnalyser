@@ -1,6 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>ResumeAnalyser</display-name>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Signup</display-name>
+		<servlet-name>Signup</servlet-name>
+		<servlet-class>controllers.Signup</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Login</display-name>
+		<servlet-name>Login</servlet-name>
+		<servlet-class>controllers.Login</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>InsertRecruit</display-name>
+		<servlet-name>InsertRecruit</servlet-name>
+		<servlet-class>controllers.InsertRecruit</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>GetRecruit</display-name>
+		<servlet-name>GetRecruit</servlet-name>
+		<servlet-class>controllers.GetRecruit</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Signup</servlet-name>
+		<url-pattern>/Signup</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>InsertRecruit</servlet-name>
+		<url-pattern>/InsertRecruit</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetRecruit</servlet-name>
+		<url-pattern>/GetRecruit</url-pattern>
+	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>

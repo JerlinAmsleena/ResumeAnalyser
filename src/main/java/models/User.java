@@ -1,33 +1,31 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
 	
 	String userId;
-	
-	String firstName;
-	String lastName;
+	String name;
 	String email;
+	
+	@JsonIgnore
 	String password;
 	
-	public User(String firstName, String lastName, String email, String password) {
+	public User(String name, String email, String password) {
 		
-		this.firstName = firstName;
-		this.lastName = lastName;
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+		this.name=name;
 		this.email = email;
 		this.password = password;
 	}
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -49,7 +47,7 @@ public class User {
 	}
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+		return "User [userId=" + userId + ", name=" + name + ", email=" + email
 				+ ", password=" + password + "]";
 	}
 	
