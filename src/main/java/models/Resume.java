@@ -1,36 +1,55 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Resume {
-	String resumeId;
+	
+	int resumeId;
 	String candidateName;
-	String contactNumber;
+	Contact contact;
+	Experience experience;
+	List<Experience> experiences;
+	
 	String education;
 	String description;
-	String linkedInDetails;
-	public Resume(String candidateName, String contactNumber, String education, String description) {
-		
+	List<Skill> skills;
+	
+	public Resume(String candidateName, Contact contact, String education, String description) {
+		super();
 		this.candidateName = candidateName;
-		this.contactNumber = contactNumber;
+		this.contact = contact;
+		this.experience = experience;
 		this.education = education;
 		this.description = description;
+		this.skills=new ArrayList<Skill>();
+		this.experiences=new ArrayList<Experience>();
 	}
-	public String getResumeId() {
-		return resumeId;
+	
+	
+	public List<Experience> getExperiences() {
+		return experiences;
 	}
-	public void setResumeId(String resumeId) {
-		this.resumeId = resumeId;
+
+
+	public void setExperiences(List<Experience> experiences) {
+		this.experiences = experiences;
 	}
+
+
+	public List<Skill> getSkills() {
+		return skills;
+	}
+
+	public void setSkills(List<Skill> skills) {
+		this.skills = skills;
+	}
+
 	public String getCandidateName() {
 		return candidateName;
 	}
 	public void setCandidateName(String candidateName) {
 		this.candidateName = candidateName;
-	}
-	public String getContactNumber() {
-		return contactNumber;
-	}
-	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
 	}
 	public String getEducation() {
 		return education;
@@ -44,18 +63,46 @@ public class Resume {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getLinkedInDetails() {
-		return linkedInDetails;
+	public int getResumeId() {
+		return resumeId;
 	}
-	public void setLinkedInDetails(String linkedInDetails) {
-		this.linkedInDetails = linkedInDetails;
+	public void setResumeId(int resumeId) {
+		this.resumeId = resumeId;
 	}
+	public Contact getContact() {
+		return contact;
+	}
+	public void setContact(Contact contact) {
+		this.contact = contact;
+	}
+	public Experience getExperience() {
+		return experience;
+	}
+	public void setExperience(Experience experience) {
+		this.experience = experience;
+	}
+//	@Override
+//	public String toString() {
+//		return "Resume [resumeId=" + resumeId + ", candidateName=" + candidateName + ", contact=" + contact
+//				+ ", experience=" + experience + ", education=" + education + ", description=" + description + "]";
+//	}
+
+
 	@Override
 	public String toString() {
-		return "Resume [resumeId=" + resumeId + ", candidateName=" + candidateName + ", contactNumber=" + contactNumber
-				+ ", education=" + education + ", description=" + description + ", linkedInDetails=" + linkedInDetails
-				+ "]";
+		return "Resume [resumeId=" + resumeId + ", candidateName=" + candidateName + ", contact=" + contact
+				+ ", experience=" + experience + ", experiences=" + experiences + ", education=" + education
+				+ ", description=" + description + ", skills=" + skills + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Resume [resumeId=" + resumeId + ", candidateName=" + candidateName + ", contact=" + contact
+//				+ ", experience=" + experience + ", education=" + education + ", description=" + description
+//				+ ", skills=" + skills + "]";
+//	}
+//	
+
 	
 	
 }

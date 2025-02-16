@@ -50,6 +50,11 @@
 			<location>/home/jerlin-zstk388/Downloads/jakarta.servlet-api-6.1.0.jar</location>
 		</link>
 		<link>
+			<name>src/main/webapp/WEB-INF/lib/javax.mail-1.6.0.jar</name>
+			<type>1</type>
+			<location>/home/jerlin-zstk388/Downloads/Required Forms/jars/javax.mail-1.6.0.jar</location>
+		</link>
+		<link>
 			<name>src/main/webapp/WEB-INF/lib/json-20210307.jar</name>
 			<type>1</type>
 			<location>/home/jerlin-zstk388/Downloads/json-20210307.jar</location>

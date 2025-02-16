@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>ResumeAnalyser</display-name>
+	<filter>
+		<description>
+		</description>
+		<display-name>Authenticate</display-name>
+		<filter-name>Authenticate</filter-name>
+		<filter-class>view.Authenticate</filter-class>
+	</filter>
+	<filter>
+		<description>
+		</description>
+		<display-name>CORSFilter</display-name>
+		<filter-name>CORSFilter</filter-name>
+		<filter-class>view.CORSFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>Authenticate</filter-name>
+		<url-pattern>/filter/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>CORSFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<servlet>
 		<description>
 		</description>
@@ -29,6 +51,34 @@
 		<servlet-name>GetRecruit</servlet-name>
 		<servlet-class>controllers.GetRecruit</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Test</display-name>
+		<servlet-name>Test</servlet-name>
+		<servlet-class>controllers.Test</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>SendOTP</display-name>
+		<servlet-name>SendOTP</servlet-name>
+		<servlet-class>controllers.SendOTP</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ReceiveOTP</display-name>
+		<servlet-name>ReceiveOTP</servlet-name>
+		<servlet-class>controllers.ReceiveOTP</servlet-class>
+	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>ChangePassword</display-name>
+		<servlet-name>ChangePassword</servlet-name>
+		<servlet-class>controllers.ChangePassword</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>Signup</servlet-name>
 		<url-pattern>/Signup</url-pattern>
@@ -39,11 +89,27 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>InsertRecruit</servlet-name>
-		<url-pattern>/InsertRecruit</url-pattern>
+		<url-pattern>/filter/InsertRecruit</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>GetRecruit</servlet-name>
-		<url-pattern>/GetRecruit</url-pattern>
+		<url-pattern>/filter/GetRecruit</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Test</servlet-name>
+		<url-pattern>/Test</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SendOTP</servlet-name>
+		<url-pattern>/SendOTP</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ReceiveOTP</servlet-name>
+		<url-pattern>/ReceiveOTP</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ChangePassword</servlet-name>
+		<url-pattern>/ChangePassword</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

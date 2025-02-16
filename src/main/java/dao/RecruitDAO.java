@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,41 +17,76 @@ import models.Skill;
 public class RecruitDAO {
 	public static Connection conn = DBConnection.getConnection();
 
+//	public static Recruit getRecruitById(int recruitId) {
+//
+//		String recruitQuery = "SELECT r.recruitId, r.recruitName, r.requirementId, r.maximumNumber, "
+//				+ "req.experience, req.qualification " + "FROM recruit r "
+//				+ "JOIN requirement req ON r.requirementId = req.requirementId " + "WHERE r.recruitId = ?";
+//
+//		try (PreparedStatement pstmtRecruit = conn.prepareStatement(recruitQuery)) {
+//			pstmtRecruit.setInt(1, recruitId);
+//			try (ResultSet rsRecruit = pstmtRecruit.executeQuery()) {
+//				if (rsRecruit.next()) {
+//					int requirementId = rsRecruit.getInt("requirementId");
+//					Requirement requirement = new Requirement(
+////                requirementId,
+//							rsRecruit.getInt("experience"), rsRecruit.getString("qualification"),
+//							getSkillsForRequirement(requirementId));
+//					requirement.setRequirementId(requirementId);
+//
+//					Recruit recruit = new Recruit(
+//							rsRecruit.getString("recruitName"),
+//							rsRecruit.getInt("maximumNumber"));
+//					recruit.setRecruitId(rsRecruit.getInt("recruitId"));
+//					recruit.setRequirement(requirement);
+//
+//					return recruit;
+//				}
+//			}
+//		} catch (SQLException e) {
+//			System.err.println("Error fetching Recruit: " + e.getMessage());
+//		}
+//		return null;
+//	}
 	public static Recruit getRecruitById(int recruitId) {
+	    String recruitQuery = "SELECT r.recruitId, r.recruitName, r.requirementId, r.maximumNumber, r.createdAt, "
+	            + "req.experience, req.qualification "
+	            + "FROM recruit r "
+	            + "JOIN requirement req ON r.requirementId = req.requirementId "
+	            + "WHERE r.recruitId = ?";
 
-		String recruitQuery = "SELECT r.recruitId, r.recruitName, r.requirementId, r.maximumNumber, "
-				+ "req.experience, req.qualification " + "FROM recruit r "
-				+ "JOIN requirement req ON r.requirementId = req.requirementId " + "WHERE r.recruitId = ?";
+	    try (PreparedStatement pstmtRecruit = conn.prepareStatement(recruitQuery)) {
+	        pstmtRecruit.setInt(1, recruitId);
+	        try (ResultSet rsRecruit = pstmtRecruit.executeQuery()) {
+	            if (rsRecruit.next()) {
+	                int requirementId = rsRecruit.getInt("requirementId");
 
-//		String skillQuery = "SELECT s.skillId, s.skillName " + "FROM skills s "
-//				+ "JOIN requirement_skill rs ON s.skillId = rs.skillId " + "WHERE rs.requirementId = ?";
+	                // Creating Requirement object
+	                Requirement requirement = new Requirement(
+	                        rsRecruit.getInt("experience"),
+	                        rsRecruit.getString("qualification"),
+	                        getSkillsForRequirement(requirementId));
+	                requirement.setRequirementId(requirementId);
 
-		try (PreparedStatement pstmtRecruit = conn.prepareStatement(recruitQuery)) {
-			pstmtRecruit.setInt(1, recruitId);
-			try (ResultSet rsRecruit = pstmtRecruit.executeQuery()) {
-				if (rsRecruit.next()) {
-					int requirementId = rsRecruit.getInt("requirementId");
-					Requirement requirement = new Requirement(
-//                requirementId,
-							rsRecruit.getInt("experience"), rsRecruit.getString("qualification"),
-							getSkillsForRequirement(requirementId));
-					requirement.setRequirementId(requirementId);
+	                // Convert Timestamp to LocalDateTime
+	                Timestamp createdAtTimestamp = rsRecruit.getTimestamp("createdAt");
+	                LocalDateTime createdAt = (createdAtTimestamp != null) ? createdAtTimestamp.toLocalDateTime() : null;
 
-					Recruit recruit = new Recruit(
-//              rsRecruit.getInt("recruitId"),
-							rsRecruit.getString("recruitName"),
-//              requirement,
-							rsRecruit.getInt("maximumNumber"));
-					recruit.setRecruitId(rsRecruit.getInt("recruitId"));
-					recruit.setRequirement(requirement);
+	                // Creating Recruit object
+	                Recruit recruit = new Recruit(
+	                        rsRecruit.getString("recruitName"),
+	                        rsRecruit.getInt("maximumNumber"));
+	                recruit.setRecruitId(rsRecruit.getInt("recruitId"));
+	                recruit.setRequirement(requirement);
+	                recruit.setCreatedAt(createdAt); // Assuming Recruit has setCreatedAt() method
 
-					return recruit;
-				}
-			}
-		} catch (SQLException e) {
-			System.err.println("Error fetching Recruit: " + e.getMessage());
-		}
-		return null;
+	                return recruit;
+	            }
+	        }
+	    } catch (SQLException e) {
+	        System.err.println("Error fetching Recruit: " + e.getMessage());
+	    }
+	    return null;
 	}
 
 	private static List<Skill> getSkillsForRequirement(int requirementId) {
@@ -73,18 +110,16 @@ public class RecruitDAO {
 	}
 	
 	public static boolean insertRecruit(Recruit recruit,String userId) {
-//        String recruitQuery = "INSERT INTO recruit (recruitName, requirementId, maximumNumber) VALUES (?, ?, ?)";
 		String recruitQuery = "INSERT INTO recruit (recruitName, requirementId, userId, maximumNumber) VALUES (?, ?, ?, ?)";
         String requirementQuery = "INSERT INTO requirement (experience, qualification) VALUES (?, ?)";
         String skillQuery = "INSERT INTO requirement_skill (requirementId, skillId) VALUES (?, ?)";
-//        Connection conn = null;
+
         PreparedStatement pstmtRecruit = null;
         PreparedStatement pstmtRequirement = null;
         PreparedStatement pstmtSkill = null;
         ResultSet generatedKeys = null;
 
         try {
-//            conn = DatabaseConnection.getConnection();
             conn.setAutoCommit(false);
 
             pstmtRequirement = conn.prepareStatement(requirementQuery, Statement.RETURN_GENERATED_KEYS);
@@ -101,10 +136,6 @@ public class RecruitDAO {
             }
 
             pstmtRecruit = conn.prepareStatement(recruitQuery, Statement.RETURN_GENERATED_KEYS);
-//            pstmtRecruit.setString(1, recruit.getRecruitName());
-//            pstmtRecruit.setInt(2, requirementId);
-//            pstmtRecruit.setInt(3, recruit.getMaximumNumber());
-//            pstmtRecruit.executeUpdate();
             pstmtRecruit.setString(1, recruit.getRecruitName());
             pstmtRecruit.setInt(2, requirementId);
             pstmtRecruit.setString(3, userId);
@@ -117,8 +148,7 @@ public class RecruitDAO {
                 pstmtSkill.setInt(2, skill.getSkillId());
                 pstmtSkill.addBatch();
             }
-            pstmtSkill.executeBatch();
-//             
+            pstmtSkill.executeBatch();           
             conn.commit(); 
             return true;
 

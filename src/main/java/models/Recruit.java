@@ -1,16 +1,35 @@
 package models;
 
+import java.time.LocalDateTime;
+
 public class Recruit {
 	int recruitId;
 	String recruitName;
 	Requirement requirement;
-//	Str
 	int maximumNumber;
+//	String createdAt;
+	LocalDateTime createdAt;
+	
 	public Recruit(String recruitName, int maximumNumber) {
 //		super();
 		this.recruitName = recruitName;
 		this.maximumNumber = maximumNumber;
 	}
+	
+	
+	
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+
 	public int getRecruitId() {
 		return recruitId;
 	}
@@ -35,11 +54,15 @@ public class Recruit {
 	public void setMaximumNumber(int maximumNumber) {
 		this.maximumNumber = maximumNumber;
 	}
+
+
+
 	@Override
 	public String toString() {
 		return "Recruit [recruitId=" + recruitId + ", recruitName=" + recruitName + ", requirement=" + requirement
-				+ ", maximumNumber=" + maximumNumber + "]";
+				+ ", maximumNumber=" + maximumNumber + ", createdAt=" + createdAt + "]";
 	}
+
 	
 	
 }
